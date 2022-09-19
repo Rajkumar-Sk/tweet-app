@@ -42,8 +42,8 @@ class TestTweetAppServiceImpl {
     @Mock
     private TweetReplyRepository tweetReplyRepository;
 
-    @Mock
-    private KafkaService kafkaService;
+//    @Mock
+//    private KafkaService kafkaService;
 
     private TweetAppUser tweetAppUser;
     private Tweet tweet;

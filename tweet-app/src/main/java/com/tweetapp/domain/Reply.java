@@ -1,10 +1,8 @@
 package com.tweetapp.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
-import java.time.LocalDateTime;
 
 @Document
 public class Reply {
@@ -14,7 +12,6 @@ public class Reply {
     private String repliedBy;
     private String userReply;
     private String tag;
-//    @JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss")
     private String repliedOn;
 
     public Reply() {

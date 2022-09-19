@@ -3,6 +3,7 @@ package com.tweetapp.service;
 import com.tweetapp.domain.Reply;
 import com.tweetapp.domain.Tweet;
 import com.tweetapp.domain.TweetAppUser;
+import com.tweetapp.dto.TweetDto;
 import com.tweetapp.exception.ExceptionMessages;
 import com.tweetapp.exception.custom.EmptyTweetException;
 import com.tweetapp.exception.custom.TweetNotFoundException;
@@ -10,7 +11,6 @@ import com.tweetapp.exception.custom.UserNotFoundException;
 import com.tweetapp.repository.TweetAppUserRepository;
 import com.tweetapp.repository.TweetReplyRepository;
 import com.tweetapp.repository.TweetRepository;
-import com.tweetapp.dto.TweetDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -36,8 +37,8 @@ public class TweetAppServiceImpl implements TweetAppService {
     @Autowired
     private TweetReplyRepository tweetReplyRepository;
 
-    @Autowired
-    private KafkaService kafkaService;
+//    @Autowired
+//    private KafkaService kafkaService;
 
     @Override
     public List<Tweet> getAllTweets() {
@@ -58,7 +59,7 @@ public class TweetAppServiceImpl implements TweetAppService {
         tweet.setLoginId(username);
         tweet.setPostedTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         tweetRepository.save(tweet);
-        kafkaService.sendMessage("TWEET HAS BEEN ADDED BY USER " + username);
+     //   kafkaService.sendMessage("TWEET HAS BEEN ADDED BY USER " + username);
         return tweet;
     }
 
@@ -77,7 +78,7 @@ public class TweetAppServiceImpl implements TweetAppService {
         existingTweet.setUserTweet(tweetDto.getTweet());
         existingTweet.setPostedTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         tweetRepository.save(existingTweet);
-        kafkaService.sendMessage("TWEET HAS BEEN UPDATED BY USER " + username);
+//        kafkaService.sendMessage("TWEET HAS BEEN UPDATED BY USER " + username);
         return existingTweet;
     }
 
@@ -94,7 +95,7 @@ public class TweetAppServiceImpl implements TweetAppService {
             throw new TweetNotFoundException(ExceptionMessages.TWEET_NOT_FOUND);
         }
         tweetRepository.delete(optionalTweet.get());
-        kafkaService.sendMessage("TWEET HAS BEEN DELETED BY USER " + username);
+//        kafkaService.sendMessage("TWEET HAS BEEN DELETED BY USER " + username);
     }
 
     @Override

@@ -40,14 +40,14 @@ public class TweetAppUserServiceImpl implements TweetAppUserService {
     @Autowired
     private TweetAppUserDetailsService tweetAppUserDetailsService;
 
-    @Autowired
-    private KafkaService kafkaService;
+//    @Autowired
+//    private KafkaService kafkaService;
 
     @Override
     public TweetAppUser registerNewUser(TweetAppUser tweetAppUser) {
         tweetAppUser.setPassword(new BCryptPasswordEncoder().encode(tweetAppUser.getPassword()));
         TweetAppUser persistedUser = tweetAppUserRepository.save(tweetAppUser);
-        kafkaService.sendMessage("USER " + persistedUser.getLoginId() + " HAS BEEN REGISTERED");
+       // kafkaService.sendMessage("USER " + persistedUser.getLoginId() + " HAS BEEN REGISTERED");
         return persistedUser;
     }
 
@@ -82,7 +82,7 @@ public class TweetAppUserServiceImpl implements TweetAppUserService {
         }
         tweetAppUser.setPassword(new BCryptPasswordEncoder().encode(forgotPassword.getNewPassword()));
         tweetAppUserRepository.save(tweetAppUser);
-        kafkaService.sendMessage("PASSWORD HAS BEEN CHANGED FOR USER " + username);
+      //  kafkaService.sendMessage("PASSWORD HAS BEEN CHANGED FOR USER " + username);
         return "Password has been changed";
     }
 

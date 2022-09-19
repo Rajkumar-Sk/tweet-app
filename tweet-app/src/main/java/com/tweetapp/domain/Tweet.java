@@ -18,7 +18,6 @@ public class Tweet {
     private List<String> likedBY;
     private List<Reply> replies;
     private String tag;
-//    @JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss")
     private String postedTime;
 
     public Tweet() {
